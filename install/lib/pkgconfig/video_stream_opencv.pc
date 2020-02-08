@@ -1,0 +1,8 @@
+prefix=/home/jared/csws/install
+
+Name: video_stream_opencv
+Description: Description of video_stream_opencv
+Version: 1.1.5
+Cflags: -I/home/jared/csws/install/include
+Libs: -L/home/jared/csws/install/lib 
+Requires: 

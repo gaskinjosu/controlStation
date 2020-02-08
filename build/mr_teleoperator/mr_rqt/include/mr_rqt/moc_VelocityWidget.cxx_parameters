@@ -1,0 +1,13 @@
+-I/usr/include/qt4
+-I/usr/include/qt4/QtGui
+-I/usr/include/qt4/QtCore
+-DROS_BUILD_SHARED_LIBS=1
+-DROS_BUILD_SHARED_LIBS=1
+-DROS_PACKAGE_NAME="mr_rqt"
+-DROSCONSOLE_BACKEND_LOG4CXX
+-D$<$<NOT:$<CONFIG:Debug>>:QT_NO_DEBUG>
+-DQT_GUI_LIB
+-DQT_CORE_LIB
+-o
+/home/jared/csws/build/mr_teleoperator/mr_rqt/include/mr_rqt/moc_VelocityWidget.cxx
+/home/jared/csws/src/mr_teleoperator/mr_rqt/include/mr_rqt/VelocityWidget.h

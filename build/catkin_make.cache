@@ -1,0 +1,2 @@
+rov_control_station:rov_teleop:teleop_twist_keyboard:video_stream_opencv
+-DCATKIN_DEVEL_PREFIX=/home/jared/csws/devel -DCMAKE_INSTALL_PREFIX=/home/jared/csws/install -G Unix Makefiles

@@ -1,0 +1,8 @@
+prefix=/home/jared/csws/devel
+
+Name: mr_rqt
+Description: Description of mr_rqt
+Version: 0.2.6
+Cflags: -I/home/jared/csws/src/mr_teleoperator/mr_rqt/include -I/home/jared/csws/build/mr_teleoperator/mr_rqt
+Libs: -L/home/jared/csws/devel/lib -lmr_rqt
+Requires: rqt_gui rqt_gui_cpp

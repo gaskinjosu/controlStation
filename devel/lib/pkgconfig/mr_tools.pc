@@ -1,0 +1,8 @@
+prefix=/home/jared/csws/devel
+
+Name: mr_tools
+Description: Description of mr_tools
+Version: 0.2.6
+Cflags: 
+Libs: -L/home/jared/csws/devel/lib 
+Requires: 

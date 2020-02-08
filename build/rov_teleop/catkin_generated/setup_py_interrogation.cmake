@@ -1,0 +1,6 @@
+set(rov_teleop_SETUP_PY_VERSION "0.0.0")
+set(rov_teleop_SETUP_PY_SCRIPTS "")
+set(rov_teleop_SETUP_PY_PACKAGES "rov_teleop")
+set(rov_teleop_SETUP_PY_PACKAGE_DIRS "src/rov_teleop")
+set(rov_teleop_SETUP_PY_MODULES "")
+set(rov_teleop_SETUP_PY_MODULE_DIRS "")

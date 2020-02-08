@@ -1,0 +1,6 @@
+set(mr_rqt_SETUP_PY_VERSION "0.2.6")
+set(mr_rqt_SETUP_PY_SCRIPTS "")
+set(mr_rqt_SETUP_PY_PACKAGES "mr_rqt")
+set(mr_rqt_SETUP_PY_PACKAGE_DIRS "src/mr_rqt")
+set(mr_rqt_SETUP_PY_MODULES "")
+set(mr_rqt_SETUP_PY_MODULE_DIRS "")

@@ -1,0 +1,8 @@
+prefix=/home/jared/csws/install
+
+Name: mr_rqt
+Description: Description of mr_rqt
+Version: 0.2.6
+Cflags: -I/home/jared/csws/install/include
+Libs: -L/home/jared/csws/install/lib -lmr_rqt
+Requires: rqt_gui rqt_gui_cpp

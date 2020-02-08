@@ -1,0 +1,8 @@
+prefix=/home/jared/csws/install
+
+Name: rov_control_station
+Description: Description of rov_control_station
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/jared/csws/install/lib 
+Requires: 

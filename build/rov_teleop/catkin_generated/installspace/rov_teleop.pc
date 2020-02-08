@@ -1,0 +1,8 @@
+prefix=/home/jared/csws/install
+
+Name: rov_teleop
+Description: Description of rov_teleop
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/jared/csws/install/lib 
+Requires: 
