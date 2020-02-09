@@ -124,9 +124,9 @@
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>10</x>
      <y>120</y>
-     <width>91</width>
+     <width>111</width>
      <height>231</height>
     </rect>
    </property>
@@ -135,7 +135,7 @@
      <rect>
       <x>0</x>
       <y>10</y>
-      <width>91</width>
+      <width>101</width>
       <height>60</height>
      </rect>
     </property>
@@ -170,7 +170,7 @@
      <rect>
       <x>0</x>
       <y>150</y>
-      <width>91</width>
+      <width>101</width>
       <height>61</height>
      </rect>
     </property>
@@ -205,7 +205,7 @@
      <rect>
       <x>0</x>
       <y>80</y>
-      <width>91</width>
+      <width>101</width>
       <height>60</height>
      </rect>
     </property>
@@ -513,6 +513,16 @@
     <property name="text">
      <string>Halt</string>
     </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../../Downloads/stop.png</normaloff>../../../../Downloads/stop.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
     <property name="checkable">
      <bool>true</bool>
     </property>
@@ -542,8 +552,8 @@
   <widget class="QWidget" name="widget_3" native="true">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>350</y>
+     <x>210</x>
+     <y>340</y>
      <width>181</width>
      <height>80</height>
     </rect>
@@ -558,7 +568,17 @@
      </rect>
     </property>
     <property name="text">
-     <string>Turn Left</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../../Downloads/arrow_turnl.png</normaloff>../../../../Downloads/arrow_turnl.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
     </property>
     <property name="checkable">
      <bool>true</bool>
@@ -580,7 +600,17 @@
      </rect>
     </property>
     <property name="text">
-     <string>Turn Right</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../../Downloads/arrow_turnr.png</normaloff>../../../../Downloads/arrow_turnr.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
     </property>
     <property name="checkable">
      <bool>true</bool>

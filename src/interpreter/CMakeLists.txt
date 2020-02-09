@@ -10,6 +10,7 @@ project(interpreter)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -71,6 +72,16 @@ find_package(catkin REQUIRED COMPONENTS
 #   DEPENDENCIES
 #   std_msgs
 # )
+
+add_message_files(
+FILES
+i2c.msg
+)
+
+generate_messages(
+DEPENDENCIES
+std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##

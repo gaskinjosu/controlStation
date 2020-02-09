@@ -3,6 +3,6 @@ prefix=/home/jared/csws/install
 Name: interpreter
 Description: Description of interpreter
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/jared/csws/install/include
 Libs: -L/home/jared/csws/install/lib 
 Requires: 

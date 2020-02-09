@@ -1,23 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 import roslib; roslib.load_manifest('interpreter')
 import rospy
 import tf.transformations
 from geometry_msgs.msg import Twist
 from std_msgs.msg import Int32
-#from interpreter.msg import i2c
+from interpreter.msg import i2c
 
 autoStatus = 0
-
-
-#############ATTEMPT TO DO I2C#########
-#import smbus
-
-#Set this same address in the arduino:
-#address = 0x04
-#bus = smbus.SMBus(1)
-
-
-######################################
+address = 0x04
+pub = 0
 
 def move_callback(msg):
  
@@ -80,6 +71,38 @@ def move_callback(msg):
         rospy.loginfo("Thruster3: %d:%d"%(id3,thruster3))
         rospy.loginfo("Thruster4: %d:%d"%(id4,thruster4))
         rospy.loginfo("Thruster5: %d:%d"%(id5,thruster5))
+	
+	#Setting up i2c messages for publishing
+	msg1 = i2c()
+	msg1.address = address
+	msg1.register = id1
+	msg1.value = [thruster1]
+
+	msg2 = i2c()
+	msg2.address = address
+	msg2.register = id2
+	msg2.value = [thruster2]
+
+	msg3 = i2c()
+	msg3.address = address
+	msg3.register = id3
+	msg3.value = [thruster3]
+
+	msg4 = i2c()
+	msg4.address = address
+	msg4.register = id4
+	msg4.value = [thruster4]
+
+	msg5 = i2c()
+	msg5.address = address
+	msg5.register = id5
+	msg5.value = [thruster5]
+
+	pub.publish(msg1)
+	pub.publish(msg2)
+	pub.publish(msg3)
+	pub.publish(msg4)
+	pub.publish(msg5)
 
         #Note that this means that for each command from the control station (individual button press),
         #this interpreter node will parse what the control station has published and will produce a set of commands
@@ -87,13 +110,7 @@ def move_callback(msg):
         # will pass it to the arduino embedded system over I2C. The embedded system will continue to hold all thrusters 
         # in the same state until it receieves another command.
 
-	###I2C ATTEMPT##########
-	#bus.write_byte_data(address,id1,thruster1)
-	#bus.write_byte_data(address,id2,thruster2)
-	#bus.write_byte_data(address,id3,thruster3)
-	#bus.write_byte_data(address,id4,thruster4)
-	#bus.write_byte_data(address,id5,thruster5)
-	#######################
+
 
 def manip_callback(msg):
 
@@ -110,10 +127,15 @@ def manip_callback(msg):
         rospy.loginfo("Publishing the following for the I2C node")
         rospy.loginfo("Manipulator: %d:%d"%(servoid,servoState))
 
+	#Setting up I2C message for publishing
+	msgServo = i2c()
+	msgServo.address = address
+	msgServo.register = servoid
+	msgServo.value = [servoState]
 
-	###I2C ATTEMPT##########
-	#bus.write_byte_data(address,servoid,serovState)
-	#######################
+	pub.publish(msgServo)
+	
+
 
 def auto_callback(msg):
     
@@ -134,7 +156,8 @@ def listener():
     rospy.Subscriber('/move_command',Twist,move_callback)
     rospy.Subscriber('/manip_command',Int32,manip_callback)
     rospy.Subscriber('/auto_status',Int32,auto_callback)
-    #rospy.Publisher('/iout',i2c,queue_size=10) 
+    global pub   
+    pub = rospy.Publisher('/iout',i2c,queue_size=10) 
 
     rospy.spin()
 
