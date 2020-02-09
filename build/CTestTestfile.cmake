@@ -6,6 +6,7 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
 subdirs("teleop_twist_keyboard")
+subdirs("interpreter")
 subdirs("rov_control_station")
 subdirs("rov_teleop")
 subdirs("video_stream_opencv")

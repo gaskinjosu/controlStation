@@ -132,6 +132,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/jared/csws/build/gtest/cmake_install.cmake")
   include("/home/jared/csws/build/teleop_twist_keyboard/cmake_install.cmake")
+  include("/home/jared/csws/build/interpreter/cmake_install.cmake")
   include("/home/jared/csws/build/rov_control_station/cmake_install.cmake")
   include("/home/jared/csws/build/rov_teleop/cmake_install.cmake")
   include("/home/jared/csws/build/video_stream_opencv/cmake_install.cmake")

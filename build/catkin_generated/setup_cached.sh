@@ -7,4 +7,10 @@
 # new environment variables
 
 # modified environment variables
+export CMAKE_PREFIX_PATH="/home/jared/csws/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/jared/csws/devel/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/jared/csws/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/jared/csws/build"
+export PYTHONPATH="/home/jared/csws/devel/lib/python2.7/dist-packages:$PYTHONPATH"
+export ROSLISP_PACKAGE_DIRECTORIES="/home/jared/csws/devel/share/common-lisp"
+export ROS_PACKAGE_PATH="/home/jared/csws/src:$ROS_PACKAGE_PATH"

@@ -1,0 +1,8 @@
+prefix=/home/jared/csws/devel
+
+Name: interpreter
+Description: Description of interpreter
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/jared/csws/devel/lib 
+Requires: 

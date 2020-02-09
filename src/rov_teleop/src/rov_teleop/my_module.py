@@ -66,9 +66,11 @@ class MyPlugin(Plugin):
 
 	self.autostate = -1
 
+	self.gripstate = 0
+
 	#set default velocity
 	self.velocity = 0
-	self.upper_velocity_limit = 100.0
+	self.upper_velocity_limit = 10.0
 	self.update_velocity(0.0)
 
 
@@ -90,8 +92,7 @@ class MyPlugin(Plugin):
 	connects all necessary signals from GUI
 	'''
 	self._widget.button_halt.toggled.connect(self.halt_checked)
-	self._widget.button_verthalt.toggled.connect(self.verthalt_checked)
-	self._widget.button_turnhalt.toggled.connect(self.turnhalt_checked)	
+	self._widget.button_verthalt.toggled.connect(self.verthalt_checked)	
 
 	self._widget.button_forward.toggled.connect(self.forward_checked)
 	self._widget.button_forwardleft.toggled.connect(self.forwardleft_checked)
@@ -112,6 +113,10 @@ class MyPlugin(Plugin):
 
 	self._widget.button_auto.toggled.connect(self.auto_checked)
 
+	self._widget.button_gripclose.toggled.connect(self.gripclose_checked)
+	self._widget.button_griphalt.toggled.connect(self.griphalt_checked)
+	self._widget.button_gripopen.toggled.connect(self.gripopen_checked)
+
 	self._widget.velocitySlider.valueChanged.connect(self.slider_activity)
 
 	#self._widget.velocity_display.textEdited.connect(self.velocity_edited)
@@ -124,8 +129,9 @@ class MyPlugin(Plugin):
 	Method initializes ROS interaction
 	'''
 	try:
-	    self.publisher_dict['movement'] = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+	    self.publisher_dict['movement'] = rospy.Publisher('/move_command', Twist, queue_size=1)
             self.publisher_dict['auto'] = rospy.Publisher('/auto_status', Int32, queue_size=1)
+	    self.publisher_dict['manip'] = rospy.Publisher('/manip_command',Int32,queue_size=1)
 
 	except rospy.ROSException as e:
 	    QMessageBox.about(self._widget, "ROS error", e.message)
@@ -138,120 +144,162 @@ class MyPlugin(Plugin):
 	else:
 	    event.ignore()
 
-    #NOTE: need to set buttons to auto-repeat so that velocity values will be updated as slider is changed...
-    
+    def zero_all(self):
+	self.xlin = 0
+	self.ylin = 0
+	self.zlin = 0
+	self.xang = 0
+	self.yand = 0
+	self.zang = 0
+
+
+
+########### HALT BUTTONS ###########################    
     def halt_checked(self):
 	if(self._widget.button_halt.isChecked()):
 	    self.xlin = 0
-	    self.ylin = 0	
-	self.sendTwist()
+	    self.ylin = 0
+	    self.zang = 0	
+	    self.sendTwist()
 
     def verthalt_checked(self):
 	if(self._widget.button_verthalt.isChecked()):
 	    self.zlin = 0	
-	self.sendTwist()
-
-
-    def turnhalt_checked(self):
-	if(self._widget.button_turnhalt.isChecked()):	
 	    self.sendTwist()
 
 
+############ END HALT BUTTONS ##########################
 
-    #Movement in the "XY" Plane
+
+
+######### "XY" PLANE MOVEMENT (These 8 buttons are mutually exclusive) ##############
+
     def forward_checked(self):
 	if(self._widget.button_forward.isChecked()):
 	    self.xlin = 1
 	    self.ylin = 0
-	else:
-	    self.xlin = 0	
-	self.sendTwist()
+	    self.zang = 0	
+	    self.sendTwist()
 
     def backward_checked(self):
 	if(self._widget.button_backward.isChecked()):
 	    self.xlin = -1
 	    self.ylin = 0
-	else:
-	    self.xlin = 0
-    	self.sendTwist()
+	    self.zang = 0
+    	    self.sendTwist()
 
     def left_checked(self):
 	if(self._widget.button_left.isChecked()):
 	    self.xlin = 0
 	    self.ylin = -1
-	else:
-	    self.ylin = 0
-	self.sendTwist()
+	    self.zang = 0
+	    self.sendTwist()
 
     def right_checked(self):
 	if(self._widget.button_right.isChecked()):
 	    self.xlin = 0
 	    self.ylin = 1
-	else:
-	    self.ylin = 0
-	self.sendTwist()
-
-#TODO
+	    self.zang = 0
+	    self.sendTwist()
 
     def forwardleft_checked(self):
 	if(self._widget.button_forwardleft.isChecked()):
-	    self.xlin = 0
-	    self.ylin = 0
+	    self.xlin = 1
+	    self.ylin = -1
+	    self.zang = 0
 	    self.sendTwist()
 
     def forwardright_checked(self):
 	if(self._widget.button_forwardright.isChecked()):
-	    self.xlin = 0
-	    self.ylin = 0
+	    self.xlin = 1
+	    self.ylin = 1
+	    self.zang = 0
 	    self.sendTwist()
 
 
     def backwardleft_checked(self):
 	if(self._widget.button_backwardleft.isChecked()):
-	    self.xlin = 0
-	    self.ylin = 0
+	    self.xlin = -1
+	    self.ylin = -1
+	    self.zang = 0
 	    self.sendTwist()
 
 
     def backwardright_checked(self):
 	if(self._widget.button_backwardright.isChecked()):
-	    self.xlin = 0
-	    self.ylin = 0
+	    self.xlin = -1
+	    self.ylin = 1
+	    self.zang = 0
 	    self.sendTwist()
-#END TODO
+
+################END "XY" PLANE MOVEMENT#####################
+
+
+
+   
+###### VERTICAL MOVEMENT ################################
 
     def up_checked(self):
 	if(self._widget.button_up.isChecked()):
 	    self.zlin = 1
-	else:
-	    self.zlin = 0
-	self.sendTwist()
+	    self.sendTwist()
 
     def down_checked(self):
 	if(self._widget.button_down.isChecked()):
 	    self.zlin = -1
-	else:
-	    self.zlin = 0
-	self.sendTwist()
+	    self.sendTwist()
 
-#TODO
+######### END VETICAL MOVEMENT ##########################
+
+
+
+############ TURNING MOVEMENT #####################
+
     def turnleft_checked(self):
 	if(self._widget.button_turnleft.isChecked()):
-	    self.zlin = 0
+	    self.zang = -1
+	    self.xlin = 0
+	    self.ylin = 0
 	    self.sendTwist()
 
     def turnright_checked(self):
 	if(self._widget.button_turnright.isChecked()):
-	    self.zlin = 0
+	    self.zang = 1
+	    self.xlin = 0
+	    self.ylin = 0
 	    self.sendTwist()
-#END TODO
+
+############ END TURNING MOVEMENT #######################
+
+
+########## AUTONOMOUS BUTTON AND MANIPULATOR CONTROLS ##########
 
     def auto_checked(self):
 	self.autostate = -self.autostate
 	self.publisher_dict['auto'].publish(self.autostate)
 
+    def gripopen_checked(self):
+	if(self._widget.button_gripopen.isChecked()):
+	    self.gripstate = 1
+	    self.publisher_dict['manip'].publish(self.gripstate)
+
+    def gripclose_checked(self):
+	if(self._widget.button_gripclose.isChecked()):
+	    self.gripstate = 2
+	    self.publisher_dict['manip'].publish(self.gripstate)
+
+    def griphalt_checked(self):
+	if(self._widget.button_griphalt.isChecked()):
+	    self.gripstate = 0
+	    self.publisher_dict['manip'].publish(self.gripstate)
+
+
+######### THRUSTER/VELOCITY SLIDER ########################
+
     def slider_activity(self):
 	self.update_velocity( self._widget.velocitySlider.value())
+
+
 
     def sendTwist(self):
 	self.twist = Twist()
@@ -260,7 +308,7 @@ class MyPlugin(Plugin):
 	self.twist.linear.z = self.zlin * self.velocity
 	self.twist.angular.x = self.xang
 	self.twist.angular.y = self.yang
-	self.twist.angular.z = self.zang
+	self.twist.angular.z = self.zang * self.velocity
 	
 	self.publisher_dict['movement'].publish(self.twist)
 
