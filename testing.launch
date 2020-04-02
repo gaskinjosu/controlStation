@@ -1,0 +1,11 @@
+<?xml version="1.0">
+<launch>
+	<machine name="theia" user="ubuntu" address="10.42.0.1" default="true" password="projecttheia">
+
+	<include file="$(find video_stream_opencv)/launch/webcam.launch"/>
+	
+	<include file="$(find i2c_communication)/launch/i2c_communication.launch"/>
+
+	<node pkg="interpreter" type="interpret.py" name="interpret" machine="theia" />
+
+</launch>

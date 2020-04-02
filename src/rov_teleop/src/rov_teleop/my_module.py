@@ -95,12 +95,12 @@ class MyPlugin(Plugin):
 	self._widget.button_verthalt.toggled.connect(self.verthalt_checked)	
 
 	self._widget.button_forward.toggled.connect(self.forward_checked)
-	self._widget.button_forwardleft.toggled.connect(self.forwardleft_checked)
-	self._widget.button_forwardright.toggled.connect(self.forwardright_checked)
+#	self._widget.button_forwardleft.toggled.connect(self.forwardleft_checked)
+#	self._widget.button_forwardright.toggled.connect(self.forwardright_checked)
 
 	self._widget.button_backward.toggled.connect(self.backward_checked)
-	self._widget.button_backwardleft.toggled.connect(self.backwardleft_checked)
-	self._widget.button_backwardright.toggled.connect(self.backwardright_checked)
+#	self._widget.button_backwardleft.toggled.connect(self.backwardleft_checked)
+#	self._widget.button_backwardright.toggled.connect(self.backwardright_checked)
 
 	self._widget.button_left.toggled.connect(self.left_checked)
 	self._widget.button_right.toggled.connect(self.right_checked)
@@ -119,7 +119,6 @@ class MyPlugin(Plugin):
 
 	self._widget.velocitySlider.valueChanged.connect(self.slider_activity)
 
-	#self._widget.velocity_display.textEdited.connect(self.velocity_edited)
 
 
 
@@ -299,7 +298,7 @@ class MyPlugin(Plugin):
     def slider_activity(self):
 	self.update_velocity( self._widget.velocitySlider.value())
 
-
+ 
 
     def sendTwist(self):
 	self.twist = Twist()

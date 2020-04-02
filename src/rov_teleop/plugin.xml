@@ -1,7 +1,7 @@
 <library path="src">
-	<class name="MyPlugin" type="rov_teleop.my_module.MyPlugin" base_class_type="rqt_gui_py::Plugin">
+	<class name="ROV_Control" type="rov_teleop.my_module.MyPlugin" base_class_type="rqt_gui_py::Plugin">
 	<description>
-		An example Python GUI plugin 
+		An Python GUI plugin for ROV controls
 	</description>
 	<qtgui>
 		<!-- optional
@@ -13,9 +13,9 @@
 		</group>
 		-->
 
-		<label> My first python plugin </label>
+		<label> ROV Controls  </label>
 		<icon type="theme">system-help</icon>
-		<statustip> Great UI </statustip>
+		<statustip> A plugin for controlling the project Theia ROV </statustip>
 
 	</qtgui>
 
